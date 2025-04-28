@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Form from "./FormEvent";
+import Searching from "./Searching";
 import {
   Home,
   HelpCircle,
@@ -9,8 +10,11 @@ import {
   Ticket,
 } from "lucide-react";
 import Logo from "../Images/logo.png";
+import { Logout } from "./redux login/loginSetup";
+import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
+
   const detail = [
     { id: 1, icon: <Home />, htext: "HOME" },
     { id: 2, icon: <HelpCircle />, htext: "HELP" },
@@ -19,14 +23,9 @@ const Navbar = () => {
     { id: 5, icon: <CalendarPlus />, htext: "CREATE EVENTS" },
     { id: 6, icon: <Ticket />, htext: "TICKETS" },
   ];
-  const [location,setLocation]= useState("")
-  const Loacated = [
-    "Andhra Pardesh","Arunachal Pardesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pardesh",
-    "Jharkhand","Karnataka","Kerala","Madhya Pardesh","Maharastra","Manipur","Meghalya","Mizoram","Nagaland","Odisha",
-    "Punjab","Rajsthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pardesh","Uttarakhand","West Bengal","Andaman Nicobar",
-    "Chandigarh","Dadra and Nagar Haveli","Daman and Diu","Dehli","Jammu & Kashmir","ladakh","Lakshadweep","Puduchery"
-  ]
-  const Filtered = Loacated.filter(locate=>locate.toLowerCase().includes(location.toLowerCase()))
+  const dispatch = useDispatch()
+  const isLogin = useSelector((state) => state.Login.isLogin)
+  
   const [isOpen, setIsOpen] = useState(false);
   const toggleSidebar = () => setIsOpen(!isOpen);
 
@@ -39,38 +38,9 @@ const Navbar = () => {
         <div>
           <img src={Logo} alt="Logo" className="w-20 h-20 md:w-36 md:h-24" />
         </div>
-
-<div>
-        <div className=" flex   gap-2 bg-slate-200 rounded-2xl px-2 py-1 w-1/3 items-center sm:order-2">
-          <input
-            type="search"
-            placeholder="Search Events..."
-            className="w-1/2 h-10 px-3 rounded-xl focus:outline-none border-none font-bold"
-          />
-          <input
-            type="search"
-            placeholder="Location..."
-            className="w-1/2 h-10 px-3 rounded-xl focus:outline-none border-none font-bold"
-            value={location}
-            onChange={(e)=>setLocation(e.target.value)}
-          />
+        <div>
+          <Searching/>
         </div>
-        <div className="absolute bg-white rounded shadow-lg max-h-40 overflow-y-auto w-1/2 mt-1 z-10">
-  {location &&
-    (Filtered.length === 0 ? (
-      <p className="text-red-600 p-2">No matching location found</p>
-    ) : (
-      Filtered.map((item, index) => (
-        <li key={index} className="p-2 hover:bg-gray-100 cursor-pointer">
-          {item}
-        </li>
-      ))
-    ))}
-</div>
-
-
-       </div> 
-
         <ul className="hidden ml-3 md:flex gap-4 items-center text-white font-semibold order-3">
           {detail.map((item) => (
             <li

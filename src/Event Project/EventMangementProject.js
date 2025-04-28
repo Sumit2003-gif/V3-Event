@@ -16,7 +16,7 @@ import Countries from './Country.js';
 function Event() {
 
   return (
-    <div >
+    <div  className='bg-slate-100'>
       <Navbar/>
       <MySlider/>
       <div className="text-center py-6 bg-white">

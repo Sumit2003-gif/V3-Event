@@ -1,7 +1,21 @@
 import React, { useRef, useState } from "react";
 import { User, Send, Lock, KeyRound } from "lucide-react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Login,Logout } from "./redux login/loginSetup";
 const Form = () => {
+  
+  const [input,setInput] = useState('')
+  const isLogin = useSelector((state) => state.Login.isLogin)
+  const username = useSelector((state) => state.Login.username)
+  const dispatch = useDispatch()
+  const handleLogin = () => {
+    if(input.trim() !== ""){
+      dispatch(Login(input))
+    }
+  } 
+  const handleLogout = () => {
+    dispatch(Logout())
+  }
   const [error, setError] = useState({});
 
   const Nameref = useRef(null);
@@ -61,8 +75,14 @@ const Form = () => {
   };
 
   return (
-    // <div className=" w bg-[#123431fc] flex items-center justify-center">
-      <form
+    <div>
+      {
+        isLogin ? (<h1>
+          Welcome, {username}
+          <button
+          onClick={handleLogout}>Logout</button>
+        </h1>):
+      (<form
         onSubmit={CreateButton}
         className="grid gap-4 px-6 py-6 w-full border-black border-2 max-w-sm place-content-center place-items-center justify-center items-center bg-white rounded-xl shadow-lg"
       >
@@ -79,6 +99,8 @@ const Form = () => {
           <input
             type="text"
             placeholder="Username"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
             ref={Nameref}
             className="pl-3 py-2 w-full bg-transparent text-gray-800 focus:outline-none"
           />
@@ -157,11 +179,12 @@ const Form = () => {
         <button
           type="submit"
           className="w-full mt-4 bg-[#123431] hover:bg-[#0f2b29] text-white font-semibold py-2 rounded-md transition duration-300"
+          onClick={handleLogin}
         >
           Create Account
         </button>
-      </form>
-    // </div>
+      </form>)
+}     </div>
   );
 };
 

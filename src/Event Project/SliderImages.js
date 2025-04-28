@@ -37,8 +37,8 @@ const MySlider = () => {
 
               {activetext === index && (
                 <motion.div
-                  className="absolute top-1/2 left-1/3 transform -translate-x-1/2 -translate-y-1/2"
-                  initial={{ y: -100, opacity: 0 }}
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                initial={{ y: -100, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 1, ease: "easeOut" }}
                 >
