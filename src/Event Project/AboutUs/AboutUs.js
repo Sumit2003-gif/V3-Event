@@ -21,14 +21,15 @@ const About = () => {
   
   return (
     <>
-    <div className="sticky top-0 z-50 bg-white">
+    
+      <div className="w-full h-screen overflow-x-hidden ">
+      <div className="sticky top-0 z-50 bg-[#1F2937]">
       <Navbar/>
     </div>
-      <div className="w-full h-screen overflow-x-hidden">
         <div className="border border-black w-screen h-4/5 overflow-hidden relative ">
           <img src={Img} className="w-full h-full object-cover"></img>
           <h1
-            className="absolute top-3/4 shadow-lg left-1/2 text-5xl transform -translate-x-1/2 -translate-y-1/2 text-gray-300 font-merriweather font-extrabold
+            className="absolute top-3/4 shadow-lg left-1/2 text-5xl transform -translate-x-1/2 -translate-y-1/2 text-[#F9FAFB] font-merriweather font-extrabold
                  text-center"
           >
             Bringing the world together through live experiences
@@ -43,7 +44,7 @@ const About = () => {
               return (
                 <div
                   key={index}
-                  className="text-gray-400 rounded-xl hover:scale-110 transition-all duration-300 bg-slate-100 items-center border cursor-default font-normal p-4 w-56 h-40 flex flex-col justify-center"
+                  className="text-gray-400 rounded-xl hover:scale-110 transition-all duration-300 bg-[#E5E7EB] items-center border cursor-default font-normal p-4 w-56 h-40 flex flex-col justify-center"
                 >
                   <span className="flex justify-center items-center mb-2">
                     {item.icon}
@@ -57,46 +58,41 @@ const About = () => {
           </div>
         </>
         <div>
-          <>
-            <h2>V3 Events & Entertainments Pvt. Ltd</h2>
-            <div className="grid md:flex">
-              <div className="w-1/2">
-                <p>
-                  V3 Events & Entertainments Pvt. Ltd.is a Delhi & Mumbai based
-                  event management & wedding planning company dedicated to
-                  providing customers with a wide assortment of event management
-                  services for all sort of corporate and personal events. Be it
-                  live shows, celebrity events, entertainment events, star
-                  nights, product launches, theme parties, wedding events,
-                  birthdays, fashion shows, gazal nights and many more….
-                </p>
-                <p>
-                  Our trained and skilled event planners have the right
-                  expertise to make your event more spectacular with more than
-                  20 years of full-time experience in the event management &
-                  Wedding Planning industry, we are serving our customers with
-                  the best possible services delivered at the best possible
-                  rates. We provide out of the box and innovative ideas for 100%
-                  client satisfaction.
-                </p>
-                <p>
-                  We are a one stop hub for all your event & Wedding Planning
-                  related requirements. Starting from venue Selection hotels
-                  booking, hospitality, decor recommendation, catering, and
-                  celebrity management to entertainment options, we deal with
-                  everything which is required for making your event a memorable
-                  one. We at V3 conceive, arrange, execute and stylize all the
-                  arrangements in a manner to help make your dream event turn
-                  into reality.
-                </p>
-                <button>Hisar Office</button>
-              </div>
-              <div className="w-1/2 flex justify-center items-center pb-4 -pt-2">
-                <Slider/>
-              </div>
-            </div>
-          </>
-        </div>
+  <>
+    <h2 className="font-playfair font-bold text-[#707070] text-2xl px-4 md:pl-8 pt-4">
+      V3 Events & Entertainments Pvt. Ltd
+    </h2>
+    <div className="flex flex-col md:flex-row p-4 md:p-10 pt-4 text-justify gap-4">
+      <div className="w-full md:w-1/2">
+        <p className="text-[#374151] mb-2">
+          V3 Events & Entertainments Pvt. Ltd. is a Delhi & Mumbai based event management & wedding planning company
+          dedicated to providing customers with a wide assortment of event management services for all sort of corporate
+          and personal events. Be it live shows, celebrity events, entertainment events, star nights, product launches,
+          theme parties, wedding events, birthdays, fashion shows, gazal nights and many more….
+        </p>
+        <p className="text-[#374151] mb-2">
+          Our trained and skilled event planners have the right expertise to make your event more spectacular. With more
+          than 20 years of full-time experience in the event management & Wedding Planning industry, we are serving our
+          customers with the best possible services delivered at the best possible rates. We provide out of the box and
+          innovative ideas for 100% client satisfaction.
+        </p>
+        <p className="text-[#374151] mb-2">
+          We are a one stop hub for all your event & Wedding Planning related requirements. Starting from venue selection,
+          hotel booking, hospitality, decor recommendation, catering, and celebrity management to entertainment options —
+          we deal with everything needed to make your event a memorable one. We at V3 conceive, arrange, execute and
+          stylize all the arrangements in a manner to help make your dream event turn into reality.
+        </p>
+        <button className="bg-[#0a272d] text-white mt-4 p-2 rounded-md hover:bg-[#051114]">
+          Hisar Office
+        </button>
+      </div>
+      <div className="w-full md:w-1/2 flex justify-center items-center">
+        <Slider />
+      </div>
+    </div>
+  </>
+</div>
+
         <div>
       <Footer/>
       </div>

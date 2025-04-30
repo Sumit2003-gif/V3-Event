@@ -1,21 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useState, useRef } from "react";
 import { User, Send, Lock, KeyRound } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { Login,Logout } from "./redux login/loginSetup";
+import { Login, Logout } from "./redux login/loginSetup";
+
 const Form = () => {
-  
-  const [input,setInput] = useState('')
-  const isLogin = useSelector((state) => state.Login.isLogin)
-  const username = useSelector((state) => state.Login.username)
-  const dispatch = useDispatch()
-  const handleLogin = () => {
-    if(input.trim() !== ""){
-      dispatch(Login(input))
-    }
-  } 
-  const handleLogout = () => {
-    dispatch(Logout())
-  }
+  const [input, setInput] = useState("");
+  const isLogin = useSelector((state) => state.Login.isLogin);
+  const username = useSelector((state) => state.Login.username);
+  const dispatch = useDispatch();
+
   const [error, setError] = useState({});
 
   const Nameref = useRef(null);
@@ -23,6 +16,16 @@ const Form = () => {
   const Passwordref = useRef(null);
   const Confirmref = useRef(null);
   const Agreeref = useRef(null);
+
+  const handleLogin = () => {
+    if (input.trim() !== "") {
+      dispatch(Login(input));
+    }
+  };
+
+  const handleLogout = () => {
+    dispatch(Logout());
+  };
 
   const CreateButton = (e) => {
     e.preventDefault();
@@ -49,7 +52,8 @@ const Form = () => {
     else if (
       !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password)
     ) {
-      newError.password ="Password must be at least 8 characters and include letters, numbers, and a special character";
+      newError.password =
+        "Password must be at least 8 characters and include letters, numbers, and a special character";
     }
 
     // Confirm password
@@ -65,6 +69,9 @@ const Form = () => {
       setError({});
       alert("Form submitted successfully!");
 
+      // Dispatch login action after form validation
+      dispatch(Login(name)); // Use the valid username after the form
+
       // Clear input fields
       Nameref.current.value = "";
       Emailref.current.value = "";
@@ -76,115 +83,116 @@ const Form = () => {
 
   return (
     <div>
-      {
-        isLogin ? (<h1>
+      {isLogin ? (
+        <h1>
           Welcome, {username}
-          <button
-          onClick={handleLogout}>Logout</button>
-        </h1>):
-      (<form
-        onSubmit={CreateButton}
-        className="grid gap-4 px-6 py-6 w-full border-black border-2 max-w-sm place-content-center place-items-center justify-center items-center bg-white rounded-xl shadow-lg"
-      >
-        <h2 className="text-2xl font-bold text-[#123431]">SIGN UP</h2>
-        <p className="text-sm text-gray-600 border-b pb-2">
-          Please fill the details and create your account!
-        </p>
-
-        {/* Username */}
-        <div className="flex items-center border border-gray-300 rounded-md bg-gray-50 overflow-hidden">
-          <span className="p-2 bg-[#123431]">
-            <User color="white" size={20} />
-          </span>
-          <input
-            type="text"
-            placeholder="Username"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            ref={Nameref}
-            className="pl-3 py-2 w-full bg-transparent text-gray-800 focus:outline-none"
-          />
-        </div>
-        {error.name && (
-          <p className="text-red-400 text-sm italic  -mt-4">{error.name}</p>
-        )}
-
-        {/* Email */}
-        <div className="flex items-center border border-gray-300 rounded-md bg-gray-50 overflow-hidden">
-          <span className="p-2 bg-[#123431]">
-            <Send color="white" size={20} />
-          </span>
-          <input
-            type="email"
-            placeholder="Email Address"
-            ref={Emailref}
-            className="pl-3 py-2 w-full bg-transparent text-gray-800 focus:outline-none"
-          />
-        </div>
-        {error.email && (
-          <p className="text-red-400 text-sm italic -mt-4">{error.email}</p>
-        )}
-
-        {/* Password */}
-        <div className="flex items-center border border-gray-300 rounded-md bg-gray-50 overflow-hidden">
-          <span className="p-2 bg-[#123431]">
-            <Lock color="white" size={20} />
-          </span>
-          <input
-            type="password"
-            placeholder="Password"
-            ref={Passwordref}
-            className="pl-3 py-2 w-full bg-transparent text-gray-800 focus:outline-none"
-          />
-        </div>
-        {error.password && (
-          <p className="text-red-400 text-sm italic  -mt-4">{error.password}</p>
-        )}
-
-        {/* Confirm Password */}
-        <div className="flex items-center border border-gray-300 rounded-md bg-gray-50 overflow-hidden">
-          <span className="p-2 bg-[#123431]">
-            <KeyRound color="white" size={20} />
-          </span>
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            ref={Confirmref}
-            className="pl-3 py-2 w-full bg-transparent text-gray-800 focus:outline-none"
-          />
-        </div>
-        {error.confirm && (
-          <p className="text-red-400 text-sm italic  -mt-4">{error.confirm}</p>
-        )}
-
-        {/* Terms & Conditions */}
-        <div className="flex items-center gap-2 text-sm text-gray-700">
-          <input type="checkbox" ref={Agreeref} />
-          <p>
-            I accept the{" "}
-            <span className="text-[#123431] font-medium cursor-pointer">
-              Terms of Use
-            </span>{" "}
-            &{" "}
-            <span className="text-[#123431] font-medium cursor-pointer">
-              Privacy Policy
-            </span>
-          </p>
-        </div>
-        {error.agree && (
-          <p className="text-red-400 text-sm italic  -mt-4">{error.agree}</p>
-        )}
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full mt-4 bg-[#123431] hover:bg-[#0f2b29] text-white font-semibold py-2 rounded-md transition duration-300"
-          onClick={handleLogin}
+          <button onClick={handleLogout}>Logout</button>
+        </h1>
+      ) : (
+        <form
+          onSubmit={CreateButton}
+          className="grid gap-4 px-6 py-6 w-full border-black border-2 max-w-sm place-content-center place-items-center justify-center items-center bg-white rounded-xl shadow-lg"
         >
-          Create Account
-        </button>
-      </form>)
-}     </div>
+          <h2 className="text-2xl font-bold text-[#123431]">SIGN UP</h2>
+          <p className="text-sm text-gray-600 border-b pb-2">
+            Please fill the details and create your account!
+          </p>
+
+          {/* Username */}
+          <div className="flex items-center border border-gray-300 rounded-md bg-gray-50 overflow-hidden">
+            <span className="p-2 bg-[#123431]">
+              <User color="white" size={20} />
+            </span>
+            <input
+              type="text"
+              placeholder="Username"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              ref={Nameref}
+              className="pl-3 py-2 w-full bg-transparent text-gray-800 focus:outline-none"
+            />
+          </div>
+          {error.name && (
+            <p className="text-red-400 text-sm italic -mt-4">{error.name}</p>
+          )}
+
+          {/* Email */}
+          <div className="flex items-center border border-gray-300 rounded-md bg-gray-50 overflow-hidden">
+            <span className="p-2 bg-[#123431]">
+              <Send color="white" size={20} />
+            </span>
+            <input
+              type="email"
+              placeholder="Email Address"
+              ref={Emailref}
+              className="pl-3 py-2 w-full bg-transparent text-gray-800 focus:outline-none"
+            />
+          </div>
+          {error.email && (
+            <p className="text-red-400 text-sm italic -mt-4">{error.email}</p>
+          )}
+
+          {/* Password */}
+          <div className="flex items-center border border-gray-300 rounded-md bg-gray-50 overflow-hidden">
+            <span className="p-2 bg-[#123431]">
+              <Lock color="white" size={20} />
+            </span>
+            <input
+              type="password"
+              placeholder="Password"
+              ref={Passwordref}
+              className="pl-3 py-2 w-full bg-transparent text-gray-800 focus:outline-none"
+            />
+          </div>
+          {error.password && (
+            <p className="text-red-400 text-sm italic -mt-4">{error.password}</p>
+          )}
+
+          {/* Confirm Password */}
+          <div className="flex items-center border border-gray-300 rounded-md bg-gray-50 overflow-hidden">
+            <span className="p-2 bg-[#123431]">
+              <KeyRound color="white" size={20} />
+            </span>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              ref={Confirmref}
+              className="pl-3 py-2 w-full bg-transparent text-gray-800 focus:outline-none"
+            />
+          </div>
+          {error.confirm && (
+            <p className="text-red-400 text-sm italic -mt-4">{error.confirm}</p>
+          )}
+
+          {/* Terms & Conditions */}
+          <div className="flex items-center gap-2 text-sm text-gray-700">
+            <input type="checkbox" ref={Agreeref} />
+            <p>
+              I accept the{" "}
+              <span className="text-[#123431] font-medium cursor-pointer">
+                Terms of Use
+              </span>{" "}
+              &{" "}
+              <span className="text-[#123431] font-medium cursor-pointer">
+                Privacy Policy
+              </span>
+            </p>
+          </div>
+          {error.agree && (
+            <p className="text-red-400 text-sm italic -mt-4">{error.agree}</p>
+          )}
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            // onClick={handleLogin}
+            className="w-full mt-4 bg-[#123431] hover:bg-[#0f2b29] text-white font-semibold py-2 rounded-md transition duration-300"
+          >
+            Create Account
+          </button>
+        </form>
+      )}
+    </div>
   );
 };
 

@@ -7,17 +7,21 @@ import Cricle from './Cricle_option';
 import CreatedEvent from './Events crearted';
 import Footer from './FooterEvent';
 import Work  from './Work';
+
 // import Video from './VideoEvent';
 import Video from "./VideoEvent.js"
 import Test from './DehliEvent';
 // import UnitedState from './UnitedState';
 // import img from "./Tech Confrenece.jpg"
 import Countries from './Country.js';
+
 function Event() {
 
   return (
     <div  className='bg-slate-100'>
-      <Navbar/>
+      <div className="sticky top-0 z-50">
+      <Navbar />
+      </div>
       <MySlider/>
       <div className="text-center py-6 bg-white">
   <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800" style={{ fontFamily: 'Playfair Display, serif' }}>
